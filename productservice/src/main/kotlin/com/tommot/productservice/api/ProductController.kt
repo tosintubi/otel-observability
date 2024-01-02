@@ -1,6 +1,8 @@
 package com.tommot.productservice.api
 
 import com.tommot.productservice.model.dto.ProductDto
+import com.tommot.productservice.model.rto.ProductRto
+import com.tommot.productservice.model.toProductRto
 import com.tommot.productservice.service.ProductService
 import io.github.oshai.kotlinlogging.KLogging
 import org.springframework.http.HttpStatus
@@ -19,10 +21,10 @@ class ProductController(private val productService: ProductService) {
 
     @PostMapping("/product")
     @ResponseStatus(HttpStatus.OK)
-    fun saveProduct(@RequestBody productDto: ProductDto): String {
+    fun saveProduct(@RequestBody productDto: ProductDto): ProductRto {
         logger.info { "received request to save product: $productDto" }
-        productService.saveProduct(productDto)
-        logger.info { "saved product successfully" }
-        return "OK"
+        return productService.saveProduct(productDto).toProductRto().also {
+            logger.info { "saved product successfully" }
+        }
     }
 }
