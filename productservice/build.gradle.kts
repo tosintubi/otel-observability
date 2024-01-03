@@ -34,7 +34,7 @@ dependencies {
 
 	configurations.create("agent")
 	dependencies {
-		"agent"("io.opentelemetry:opentelemetry-javaagent:1.33.0")
+		"agent"("io.opentelemetry.javaagent:opentelemetry-javaagent:1.32.0")
 	}
 }
 
@@ -50,6 +50,7 @@ tasks.withType<Test> {
 }
 
 tasks.named<BootJar>("bootJar") {
+	dependsOn("copyAgent")
 	archiveFileName = "product-service.jar"
 }
 
