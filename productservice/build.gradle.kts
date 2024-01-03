@@ -50,11 +50,11 @@ tasks.withType<Test> {
 }
 
 tasks.named<BootJar>("bootJar") {
-	dependsOn("downloadAgent")
+	dependsOn("copyAgent")
 	archiveFileName = "product-service.jar"
 }
 
-tasks.register<Copy>("downloadAgent") {
+tasks.register<Copy>("copyAgent") {
 	from(configurations["agent"]) {
 		rename("opentelemetry-javaagent-.*\\.jar", "opentelemetry-javaagent.jar")
 	}
