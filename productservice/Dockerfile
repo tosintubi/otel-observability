@@ -4,7 +4,4 @@ ADD build/libs/product-service.jar /product-service.jar
 ADD build/agent/opentelemetry-javaagent.jar /opentelemetry-javaagent.jar
 
 ENTRYPOINT java -javaagent:opentelemetry-javaagent.jar \
-                 -Dotel.traces.exporter=logging \
-                 -Dotel.metrics.exporter=logging \
-                 -Dotel.logs.exporter=logging \
                  -jar /product-service.jar

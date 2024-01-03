@@ -16,3 +16,7 @@ class Product(
 )
 fun Product.toProductRto(): ProductRto =
     ProductRto(this.id!!, this.productName!!, this.price)
+
+fun List<Product>.toProductRtoList(): List<ProductRto> {
+    return map { ProductRto(it.id!!, it.productName!!, it.price) }
+}
