@@ -4,9 +4,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/productservice
     username:
     password:
-    jpa:
+  jpa:
+    properties:
       hibernate:
-        ddl-auto: update
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
