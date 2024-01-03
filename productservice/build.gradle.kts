@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
@@ -22,6 +21,7 @@ repositories {
 }
 
 dependencies {
+
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -31,6 +31,11 @@ dependencies {
 
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	configurations.create("agent")
+	dependencies {
+		"agent"("io.opentelemetry:opentelemetry-javaagent:1.33.0")
+	}
 }
 
 tasks.withType<KotlinCompile> {
@@ -46,4 +51,11 @@ tasks.withType<Test> {
 
 tasks.named<BootJar>("bootJar") {
 	archiveFileName = "product-service.jar"
+}
+
+tasks.register<Copy>("copyAgent") {
+	from(configurations["agent"]) {
+		rename("opentelemetry-javaagent-.*\\.jar", "opentelemetry-javaagent.jar")
+	}
+	into(layout.buildDirectory.dir("agent"))
 }
