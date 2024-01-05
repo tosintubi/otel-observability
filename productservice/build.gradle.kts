@@ -4,6 +4,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
 	id("org.springframework.boot") version "3.2.1"
 	id("io.spring.dependency-management") version "1.1.4"
+	id("com.google.cloud.tools.jib") version "3.4.0"
 	kotlin("jvm") version "1.9.21"
 	kotlin("plugin.spring") version "1.9.21"
 	kotlin("plugin.jpa") version "1.9.21"
@@ -59,4 +60,32 @@ tasks.register<Copy>("copyAgent") {
 		rename("opentelemetry-javaagent-.*\\.jar", "opentelemetry-javaagent.jar")
 	}
 	into(layout.buildDirectory.dir("agent"))
+}
+
+jib {
+	from {
+		image = "gcr.io/distroless/java17-debian12"
+		platforms {
+			platform {
+				architecture = "arm64"
+				os = "linux"
+			}
+		}
+	}
+
+
+	container {
+		jvmFlags = listOf(
+			"-javaagent:/otelagent/opentelemetry-javaagent.jar"
+		)
+	}
+
+	extraDirectories {
+		paths {
+			path {
+				from = layout.buildDirectory.dir("agent").get().asFile.toPath()
+				into = "otelagent"
+			}
+		}
+	}
 }
