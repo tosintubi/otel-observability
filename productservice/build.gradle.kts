@@ -73,19 +73,22 @@ jib {
 		}
 	}
 
+	extraDirectories {
+		paths {
+			path {
+				setFrom(layout.buildDirectory.dir("otelagent"))
+				into = "/otelagent"
+			}
+		}
+	}
 
 	container {
 		jvmFlags = listOf(
 			"-javaagent:/otelagent/opentelemetry-javaagent.jar"
 		)
 	}
+}
 
-	extraDirectories {
-		paths {
-			path {
-				from = layout.buildDirectory.dir("agent").get().asFile.toPath()
-				into = "otelagent"
-			}
-		}
-	}
+tasks.named("jibDockerBuild"){
+	dependsOn("copyAgent")
 }
