@@ -16,6 +16,19 @@ services:
       - jaeger
       - zipkin
 
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    volumes:
+      - ./docker/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yaml
+    restart: always
+    ports:
+      - "9090:9090"
+    depends_on:
+      - product-service
+
   jaeger:
     container_name: jaeger
     image: jaegertracing/all-in-one:latest
