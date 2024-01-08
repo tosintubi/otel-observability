@@ -27,7 +27,7 @@ services:
       - --config.file=/etc/prometheus/prometheus.yaml
     restart: always
     ports:
-      - "9090:9090"
+      - "9191:9090"
     depends_on:
       - product-service
 
