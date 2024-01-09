@@ -41,12 +41,7 @@ services:
       - "16686:16686"
       - "14250"
 
-  zipkin:
-    container_name: zipkin
-    image: openzipkin/zipkin:latest
-    restart: always
-    ports:
-      - "9411:9411"
+
 
   postgres:
     container_name: postgres
