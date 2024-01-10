@@ -31,6 +31,17 @@ services:
     depends_on:
       - product-service
 
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    volumes:
+      - ./docker/grafana/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
   jaeger:
     container_name: jaeger
     image: jaegertracing/all-in-one:latest
