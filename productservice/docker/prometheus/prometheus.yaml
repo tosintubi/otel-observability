@@ -12,4 +12,4 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets:
-          - order-service:9464
+          - productservice:9464
