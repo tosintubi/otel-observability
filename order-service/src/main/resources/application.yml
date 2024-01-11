@@ -18,3 +18,12 @@ spring:
     name: ORDER-SERVICE
 server:
   port: 8181
+management:
+  endpoint:
+    prometheus:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
