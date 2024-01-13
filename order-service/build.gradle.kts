@@ -1,9 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
 	id("org.springframework.boot") version "3.2.1"
 	id("io.spring.dependency-management") version "1.1.4"
-	id("com.google.cloud.tools.jib") version "3.4.0"
+//	id("com.google.cloud.tools.jib") version "3.4.0"
 	kotlin("jvm") version "1.9.22"
 	kotlin("plugin.spring") version "1.9.22"
 	kotlin("plugin.jpa") version "1.9.22"
@@ -37,6 +38,11 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs += "-Xjsr305=strict"
 		jvmTarget = "17"
 	}
+}
+
+tasks.named<BootJar>("bootJar") {
+	dependsOn("copyAgent")
+	archiveFileName = "order-service.jar"
 }
 
 tasks.withType<Test> {
