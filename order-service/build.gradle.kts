@@ -45,6 +45,12 @@ tasks.named<BootJar>("bootJar") {
 	archiveFileName = "order-service.jar"
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
+tasks.register<Copy>("copyAgent") {
+	from(configurations["agent"]) {
+		rename("opentelemetry-javaagent-.*\\.jar", "opentelemetry-javaagent.jar")
+	}
+	into(layout.buildDirectory.dir("agent"))
+	tasks.withType<Test> {
+		useJUnitPlatform()
+	}
 }
