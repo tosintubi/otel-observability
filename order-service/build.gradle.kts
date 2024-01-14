@@ -54,3 +54,14 @@ tasks.register<Copy>("copyAgent") {
 		useJUnitPlatform()
 	}
 }
+jib{
+	from {
+		image = "gcr.io/distroless/java17-debian12"
+		platforms {
+			platform {
+				architecture = "amd64"
+				os = "linux"
+			}
+		}
+	}
+}
