@@ -64,4 +64,13 @@ jib{
 			}
 		}
 	}
+
+	extraDirectories {
+		paths {
+			path {
+				setFrom(layout.buildDirectory.dir("agent"))
+				into = "/otelagent"
+			}
+		}
+	}
 }
