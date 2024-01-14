@@ -80,3 +80,6 @@ jib{
 		)
 	}
 }
+tasks.named("jibDockerBuild"){
+	dependsOn("copyAgent")
+}
