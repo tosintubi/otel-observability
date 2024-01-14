@@ -73,4 +73,10 @@ jib{
 			}
 		}
 	}
+
+	container {
+		jvmFlags = listOf(
+			"-javaagent:/otelagent/opentelemetry-javaagent.jar"
+		)
+	}
 }
