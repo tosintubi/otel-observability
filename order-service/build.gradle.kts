@@ -80,12 +80,6 @@ jib{
 		)
 	}
 }
-tasks.register<Copy>("copyAgent") {
-	from(configurations["agent"]) {
-		rename("opentelemetry-javaagent-.*\\.jar", "opentelemetry-javaagent.jar")
-	}
-	into(layout.buildDirectory.dir("agent"))
-}
 
 tasks.named("jibDockerBuild"){
 	dependsOn("copyAgent")
