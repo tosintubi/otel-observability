@@ -53,6 +53,7 @@ tasks.register<Copy>("copyAgent") {
 	tasks.withType<Test> {
 		useJUnitPlatform()
 	}
+
 }
 jib{
 	from {
