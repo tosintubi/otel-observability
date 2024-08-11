@@ -65,6 +65,7 @@ jib{
 		}
 	}
 
+
 	extraDirectories {
 		paths {
 			path {
